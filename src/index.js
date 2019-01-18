@@ -1,4 +1,4 @@
-import { Numbers } from './numbers';
+import { FormatData } from './format_data';
 
 const numbers = new Numbers();
 const radix = 10;

@@ -1,6 +1,6 @@
 import { APICall } from './api_call';
 
-export class FormatData {
+export class BookSearchData {
   constructor() {
     this.apiCall = new APICall();
   }

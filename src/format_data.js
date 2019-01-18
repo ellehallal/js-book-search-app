@@ -1,21 +1,20 @@
 import { APICall } from './api_call';
 
 export class FormatData {
-  constructor(){
-    this.apiCall = new APICall()
+  constructor() {
+    this.apiCall = new APICall();
   }
 
   async returnSortedData(query, maxResults = 10, orderBy = 'relevance') {
     const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
     return this.formatData(data);
-
   }
 
   formatData(data) {
     const dataList = data.items;
     const sortedData = [];
     const notAvailable = 'Not available';
-    const imageNotAvailable = '../assets/img/no-image.png'
+    const imageNotAvailable = '../assets/img/no-image.png';
 
     dataList.forEach((item) => {
       sortedData.push({
@@ -25,8 +24,8 @@ export class FormatData {
         rating: item.volumeInfo.averageRating || notAvailable,
         image: item.volumeInfo.imageLinks.thumbnail || imageNotAvailable,
         link: item.volumeInfo.canonicalVolumeLink || notAvailable,
-      })
-    })
-    return sortedData
+      });
+    });
+    return sortedData;
   }
 }

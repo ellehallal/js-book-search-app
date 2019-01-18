@@ -21,7 +21,7 @@ export class BookSearchData {
         title: item.volumeInfo.title || notAvailable,
         author: item.volumeInfo.authors || notAvailable,
         publisher: item.volumeInfo.publisher || notAvailable,
-        rating: item.volumeInfo.averageRating || notAvailable,
+        rating: item.volumeInfo.averageRating || "Not rated",
         image: item.volumeInfo.imageLinks.thumbnail || imageNotAvailable,
         link: item.volumeInfo.canonicalVolumeLink || notAvailable,
       });

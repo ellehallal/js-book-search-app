@@ -1,48 +1,44 @@
-import { FormatData } from './format_data';
+import { BookSearchData } from './book_search_data';
 
-const numbers = new Numbers();
-const radix = 10;
-let listOfNumbers = [];
+const bookSearchData = new BookSearchData();
 
-function otherWayOfWritingText() {
-  const element = document.createElement('p');
-  element.innerHTML = 'Or I can put it in via a function!';
-  return element;
+
+const submit = document.getElementById('submit');
+const submitQuery = document.getElementById('submit-query');
+const searchResults = document.getElementById('search-results')
+
+submit.addEventListener('click', async function (){
+  let searchFieldInput = document.getElementById('search-field').value;
+  if(searchFieldInput.length === 0) {
+    searchResults.prepend("Please enter a search term")
+  } else {
+    const results = await bookSearchData.returnSortedData(searchFieldInput)
+    return displaySearchResults(results)
+  }
+
+})
+
+function displaySearchResults(results) {
+  searchResults.innerHTML = ""
+  results.forEach((book) => {
+    const bookData = document.createElement('div');
+    const title = document.createElement('p');
+    const author = document.createElement('p');
+    const publisher = document.createElement('p');
+    const rating = document.createElement('p');
+    const link = document.createElement('p');
+    const image = document.createElement('img');
+
+    title.innerHTML = `Title: ${book.title}`;
+    author.innerHTML = `Author(s): ${book.author}`;
+    publisher.innerHTML = `Publisher: ${book.publisher}`;
+    rating.innerHTML = `Rating: ${book.rating}`;
+    link.innerHTML = book.link
+    image.src = book.image
+
+    bookData.append(title,author,publisher,rating,link,image);
+    console.log(bookData)
+    searchResults.appendChild(bookData)
+  })
+
 }
-
-function temporarilyClearNumbers() {
-  document.getElementById('list-of-numbers').innerHTML = '';
-}
-
-function displayList() {
-  temporarilyClearNumbers();
-  listOfNumbers.forEach((number) => {
-    const element = document.createElement('li');
-    element.innerHTML = number;
-    document.getElementById('list-of-numbers').appendChild(element);
-  });
-}
-
-function addNumberToList(event) {
-  event.preventDefault();
-  const number = document.getElementById('number').value;
-  listOfNumbers.push(parseInt(number, radix));
-  displayList();
-}
-
-function addOneToEachNumber() {
-  listOfNumbers = numbers.addOneToAll(listOfNumbers);
-  displayList();
-}
-
-
-function clearNumbers() {
-  listOfNumbers = [];
-  displayList();
-}
-
-document.getElementById('other-way-of-writing-text').appendChild(otherWayOfWritingText());
-document.getElementById('add-number').onclick = addNumberToList;
-document.getElementById('add-one-to-each-number').onclick = addOneToEachNumber;
-document.getElementById('temporarily-clear-numbers').onclick = temporarilyClearNumbers;
-document.getElementById('clear-numbers').onclick = clearNumbers;

@@ -1,4 +1,7 @@
 import { FormatData } from '../src/format_data';
+import { APICall } from '../src/api_call';
+
+jest.mock('../src/api_call');
 
 
 describe('Format Data Class', () => {
@@ -10,9 +13,12 @@ describe('Format Data Class', () => {
 
   describe('returnSortedData()', () => {
 
-    it('returns relevant book data as an array of objects', async () => {
-      const data = await formatData.returnSortedData("Harry Potter", 10);
-      expect(data.length).toEqual(10)
+    it('mock - checks if returnSortedData calls the APICall function, getSearchResultData', () => {
+      const data = formatData.returnSortedData("Harry Potter");
+      const mockAPICallInstance = APICall.mock.instances[0];
+      const mockGetSearchResultData = mockAPICallInstance.getSearchResultData
+      expect(mockGetSearchResultData).toHaveBeenCalledTimes(1)
+      expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10, 'relevance')
     });
   });
 

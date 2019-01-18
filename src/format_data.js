@@ -5,7 +5,7 @@ export class FormatData {
     this.apiCall = new APICall()
   }
 
-  async returnSortedData(query, maxResults, orderBy) {
+  async returnSortedData(query, maxResults = 10, orderBy = 'relevance') {
     const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
     return this.formatData(data);
 

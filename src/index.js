@@ -8,10 +8,14 @@ const submitQuery = document.getElementById('submit-query');
 const searchResults = document.getElementById('search-results')
 
 submit.addEventListener('click', async function (){
-  console.log('hello')
   let searchFieldInput = document.getElementById('search-field').value;
-  const results = await bookSearchData.returnSortedData(searchFieldInput)
-  return displaySearchResults(results)
+  if(searchFieldInput.length === 0) {
+    searchResults.innerHTML = "Please enter a search term"
+  } else {
+    const results = await bookSearchData.returnSortedData(searchFieldInput)
+    return displaySearchResults(results)
+  }
+
 })
 
 function displaySearchResults(results) {
@@ -27,7 +31,7 @@ function displaySearchResults(results) {
 
     title.innerHTML = `Title: ${book.title}`;
     author.innerHTML = `Author(s): ${book.author}`;
-    publisher.innerHTML = `Publisher ${book.publisher}`;
+    publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: ${book.rating}`;
     link.innerHTML = book.link
     image.src = book.image

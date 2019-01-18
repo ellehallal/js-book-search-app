@@ -7,7 +7,11 @@ export class FormatData {
 
   async returnSortedData(query, maxResults, orderBy) {
     const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
+    return this.formatData(data);
 
+  }
+
+  formatData(data) {
     const dataList = data.items;
     const sortedData = [];
     const notAvailable = 'Not available';

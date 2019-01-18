@@ -10,7 +10,7 @@ const searchResults = document.getElementById('search-results')
 submit.addEventListener('click', async function (){
   let searchFieldInput = document.getElementById('search-field').value;
   if(searchFieldInput.length === 0) {
-    searchResults.innerHTML = "Please enter a search term"
+    searchResults.prepend("Please enter a search term")
   } else {
     const results = await bookSearchData.returnSortedData(searchFieldInput)
     return displaySearchResults(results)

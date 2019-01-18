@@ -9,12 +9,13 @@ const searchResults = document.getElementById('search-results')
 
 submit.addEventListener('click', async function (){
   console.log('hello')
-  const searchFieldInput = document.getElementById('search-field').value;
+  let searchFieldInput = document.getElementById('search-field').value;
   const results = await bookSearchData.returnSortedData(searchFieldInput)
   return displaySearchResults(results)
 })
 
 function displaySearchResults(results) {
+  searchResults.innerHTML = ""
   results.forEach((book) => {
     const bookData = document.createElement('div');
     const title = document.createElement('p');

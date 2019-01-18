@@ -8,17 +8,19 @@ export class FormatData {
   async returnSortedData(query, maxResults, orderBy) {
     const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
 
-    const dataList = data.items
-    const sortedData = []
+    const dataList = data.items;
+    const sortedData = [];
+    const notAvailable = 'Not available';
+    const imageNotAvailable = '../assets/img/no-image.png'
 
     dataList.forEach((item) => {
       sortedData.push({
-        title: item.volumeInfo.title,
-        author: item.volumeInfo.authors,
-        publisher: item.volumeInfo.publisher,
-        rating: item.volumeInfo.averageRating,
-        image: item.volumeInfo.imageLinks.thumbnail,
-        link: item.volumeInfo.canonicalVolumeLink
+        title: item.volumeInfo.title || notAvailable,
+        author: item.volumeInfo.authors || notAvailable,
+        publisher: item.volumeInfo.publisher || notAvailable,
+        rating: item.volumeInfo.averageRating || notAvailable,
+        image: item.volumeInfo.imageLinks.thumbnail || imageNotAvailable,
+        link: item.volumeInfo.canonicalVolumeLink || notAvailable,
       })
     })
     return sortedData

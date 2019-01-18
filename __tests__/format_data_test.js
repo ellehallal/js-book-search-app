@@ -13,7 +13,6 @@ describe('Format Data', () => {
     it('returns relevant book data as an array of objects', async () => {
       const data = await formatData.returnSortedData("Harry Potter", 10);
       expect(data.length).toEqual(10)
-
     });
   });
 });

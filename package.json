@@ -25,20 +25,20 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
-    "dotenv": "^6.2.0",
     "dotenv-webpack": "^1.6.0",
+    "dotenv": "^6.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.2",
     "jest": "^23.6.0",
-    "node-fetch": "^2.3.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "express": "^4.16.4",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "node-fetch": "^2.3.0"
   },
   "engines": {
     "node": "11.6.0",

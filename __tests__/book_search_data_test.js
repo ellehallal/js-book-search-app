@@ -28,7 +28,7 @@ describe('Book Search Data class', () => {
     it('only returns the requested information from the data', () => {
       const formattedData = bookSearchData.formatData(data)
       expect(Object.keys(formattedData[0]).length).toEqual(6)
-      expect(formattedData).toEqual([{title: "Grenada", author: 'Author information unavailable', publisher: 'Not available', rating: 'Not rated', image: '../assets/img/no-image.png', link: "https://grenada.com"}])
+      expect(formattedData).toEqual([{title: "Grenada", author: 'Author information unavailable', publisher: 'Not available', rating: 'Not rated', image: './assets/img/no-image.png', link: "https://grenada.com"}])
     });
 
     it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {

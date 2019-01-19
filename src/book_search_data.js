@@ -1,5 +1,7 @@
 import { APICall } from './api_call';
 
+const _ = require('lodash');
+
 export class BookSearchData {
   constructor() {
     this.apiCall = new APICall();
@@ -18,14 +20,33 @@ export class BookSearchData {
 
     dataList.forEach((item) => {
       sortedData.push({
-        title: item.volumeInfo.title || notAvailable,
-        author: item.volumeInfo.authors || notAvailable,
-        publisher: item.volumeInfo.publisher || notAvailable,
-        rating: item.volumeInfo.averageRating || "Not rated",
-        image: item.volumeInfo.imageLinks.thumbnail || imageNotAvailable,
-        link: item.volumeInfo.canonicalVolumeLink || notAvailable,
+        title: this.checkIfKeyValueExists(item, 'volumeInfo.title'),
+        author: this.checkIfKeyValueExists(item, 'volumeInfo.authors'),
+        publisher: this.checkIfKeyValueExists(item, 'volumeInfo.publisher'),
+        rating: this.checkIfKeyValueExists(item, 'volumeInfo.averageRating'),
+        image: this.checkIfKeyValueExists(item, 'volumeInfo.imageLinks.thumbnail'),
+        link: this.checkIfKeyValueExists(item, 'volumeInfo.canonicalVolumeLink')
       });
     });
     return sortedData;
+  }
+
+  checkIfKeyValueExists(obj, key) {
+    if (_.has(obj, key)) {
+      if(_.get(obj, key)) {
+       return _.get(obj, key)
+     }
+    }
+
+    switch (key) {
+      case ('volumeInfo.imageLinks.thumbnail'):
+        return '../assets/img/no-image.png';
+        break;
+      case ('volumeInfo.averageRating'):
+        return 'not rated';
+        break;
+      default:
+        return 'not available';
+    }
   }
 }

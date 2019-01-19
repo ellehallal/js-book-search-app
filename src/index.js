@@ -16,6 +16,7 @@ function displayEmptyFieldWarning() {
   }, 2000);
 }
 
+
 async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
   if (searchFieldInput.length === 0) {
@@ -53,7 +54,7 @@ function displaySearchResults(results) {
     image.src = book.image;
 
     if (book.link === 'not available') {
-      link.innerHTML = `More info: ${book.link}`;
+      link.innerHTML = 'Sorry, further information is not available for this book';
     } else {
       link.innerHTML = `<a href="${book.link}" target="_blank">Click here</a>  for more information`;
     }

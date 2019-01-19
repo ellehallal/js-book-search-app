@@ -26,21 +26,23 @@ function displaySearchResults(results) {
     bookDataImage.classList.add('book-data-image')
 
     const title = document.createElement('p');
+    title.classList.add('book-title')
+    const hr = document.createElement('hr');
     const author = document.createElement('p');
     const publisher = document.createElement('p');
     const rating = document.createElement('p');
     const link = document.createElement('p');
     const image = document.createElement('img');
 
-    title.innerHTML = `Title: ${book.title}`;
+    title.innerHTML = book.title;
     author.innerHTML = `Author(s): ${book.author}`;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: ${book.rating}`;
-    link.innerHTML = book.link
+    // link.innerHTML = book.link
     image.src = book.image
 
     bookDataImage.append(image);
-    bookDataText.append(title,author,publisher,rating,link);
+    bookDataText.append(title,hr,author,publisher,rating,link);
     bookData.append(bookDataImage, bookDataText);
     searchResults.append(bookData)
   })

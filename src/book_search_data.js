@@ -7,8 +7,8 @@ export class BookSearchData {
     this.apiCall = new APICall();
   }
 
-  async returnSortedData(query, maxResults = 10, orderBy = 'relevance') {
-    const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
+  async returnSortedData(query, maxResults) {
+    const data = await this.apiCall.getSearchResultData(query, maxResults);
     return this.formatData(data);
   }
 

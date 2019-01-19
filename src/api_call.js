@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-require('dotenv').config();
+if (process.env.NODE_ENV == 'development') require('dotenv').config({ silent: true });
 
 export class APICall {
   async getSearchResultData(query, maxResults) {

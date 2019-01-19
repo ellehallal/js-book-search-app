@@ -22,18 +22,18 @@ export class BookSearchData {
 
     dataList.forEach((item) => {
       sortedData.push({
-        title: this.checkIfKeyValueExists(item, 'volumeInfo.title'),
-        author: this.checkIfKeyValueExists(item, 'volumeInfo.authors'),
-        publisher: this.checkIfKeyValueExists(item, 'volumeInfo.publisher'),
-        rating: this.checkIfKeyValueExists(item, 'volumeInfo.averageRating'),
-        image: this.checkIfKeyValueExists(item, 'volumeInfo.imageLinks.thumbnail'),
-        link: this.checkIfKeyValueExists(item, 'volumeInfo.canonicalVolumeLink')
+        title: this.verifyDataExists(item, 'volumeInfo.title'),
+        author: this.verifyDataExists(item, 'volumeInfo.authors'),
+        publisher: this.verifyDataExists(item, 'volumeInfo.publisher'),
+        rating: this.verifyDataExists(item, 'volumeInfo.averageRating'),
+        image: this.verifyDataExists(item, 'volumeInfo.imageLinks.thumbnail'),
+        link: this.verifyDataExists(item, 'volumeInfo.canonicalVolumeLink')
       });
     });
     return sortedData;
   }
 
-  checkIfKeyValueExists(obj, key) {
+  verifyDataExists(obj, key) {
     if (_.has(obj, key)) {
       if(_.get(obj, key)) {
        return _.get(obj, key)

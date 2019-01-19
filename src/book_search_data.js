@@ -41,7 +41,7 @@ export class BookSearchData {
     }
     switch (key) {
       case ('volumeInfo.authors'):
-        return 'Author information unavailable'
+        return 'Author information unavailable';
       case ('volumeInfo.imageLinks.thumbnail'):
         return '../assets/img/no-image.png';
       case ('volumeInfo.averageRating'):

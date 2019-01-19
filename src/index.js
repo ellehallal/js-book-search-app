@@ -7,25 +7,11 @@ const searchResults = document.getElementById('search-results');
 const warningMessage = document.getElementById('warning-message');
 
 
-submit.addEventListener('click', requestSearchResults);
-
 function displayEmptyFieldWarning() {
   warningMessage.innerHTML = '<p id="warning">Please enter a search term</p>';
-  setTimeout(function () {
+  setTimeout(() => {
     warningMessage.innerHTML = '';
   }, 2000);
-}
-
-
-async function requestSearchResults() {
-  const searchFieldInput = document.getElementById('search-field').value;
-  const resultsToDisplay = document.getElementById('results-to-display').value;
-  if (searchFieldInput.length === 0) {
-    displayEmptyFieldWarning();
-  } else {
-    const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
-    return displaySearchResults(results);
-  }
 }
 
 function displaySearchResults(results) {
@@ -66,3 +52,15 @@ function displaySearchResults(results) {
     searchResults.append(bookData);
   });
 }
+
+async function requestSearchResults() {
+  const searchFieldInput = document.getElementById('search-field').value;
+  const resultsToDisplay = document.getElementById('results-to-display').value;
+  if (searchFieldInput.length === 0) {
+    return displayEmptyFieldWarning();
+  }
+  const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
+  return displaySearchResults(results);
+}
+
+submit.addEventListener('click', requestSearchResults);

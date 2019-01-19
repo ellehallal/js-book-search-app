@@ -39,7 +39,6 @@ export class BookSearchData {
         return _.get(obj, key);
       }
     }
-    
     switch (key) {
       case ('volumeInfo.imageLinks.thumbnail'):
         return '../assets/img/no-image.png';

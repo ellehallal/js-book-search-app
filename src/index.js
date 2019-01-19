@@ -9,17 +9,17 @@ const warningMessage = document.getElementById('warning-message');
 
 submit.addEventListener('click', requestSearchResults);
 
-function displayEmptyFieldWarning(){
+function displayEmptyFieldWarning() {
   warningMessage.innerHTML = '<p id="warning">Please enter a search term</p>';
-  setTimeout(function(){
-      warningMessage.innerHTML = "";
-    },2000);
+  setTimeout(function () {
+    warningMessage.innerHTML = '';
+  }, 2000);
 }
 
-async function requestSearchResults(){
+async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
   if (searchFieldInput.length === 0) {
-    displayEmptyFieldWarning()
+    displayEmptyFieldWarning();
   } else {
     const results = await bookSearchData.returnSortedData(searchFieldInput);
     return displaySearchResults(results);

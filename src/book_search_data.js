@@ -15,8 +15,10 @@ export class BookSearchData {
   formatData(data) {
     const dataList = data.items;
     const sortedData = [];
-    const notAvailable = 'Not available';
-    const imageNotAvailable = '../assets/img/no-image.png';
+
+    if(_.isEmpty(data) || _.isEmpty(dataList)) {
+      return 'Sorry, no results found. Please try another search term.'
+    }
 
     dataList.forEach((item) => {
       sortedData.push({
@@ -49,4 +51,5 @@ export class BookSearchData {
         return 'not available';
     }
   }
+
 }

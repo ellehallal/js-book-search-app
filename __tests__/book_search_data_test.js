@@ -3,7 +3,6 @@ import { APICall } from '../src/api_call';
 
 jest.mock('../src/api_call');
 
-
 describe('Book Search Data class', () => {
 
   let bookSearchData;
@@ -20,8 +19,6 @@ describe('Book Search Data class', () => {
       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1)
       expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10, 'relevance')
     });
-
-
   });
 
   describe('formatData()', () => {
@@ -44,6 +41,5 @@ describe('Book Search Data class', () => {
       expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.')
     });
   });
-
 
 });

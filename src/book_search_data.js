@@ -16,8 +16,8 @@ export class BookSearchData {
     const dataList = data.items;
     const sortedData = [];
 
-    if(_.isEmpty(data) || _.isEmpty(dataList)) {
-      return 'Sorry, no results found. Please try another search term.'
+    if (_.isEmpty(data) || _.isEmpty(dataList)) {
+      return 'Sorry, no results found. Please try another search term.';
     }
 
     dataList.forEach((item) => {
@@ -27,7 +27,7 @@ export class BookSearchData {
         publisher: this.verifyDataExists(item, 'volumeInfo.publisher'),
         rating: this.verifyDataExists(item, 'volumeInfo.averageRating'),
         image: this.verifyDataExists(item, 'volumeInfo.imageLinks.thumbnail'),
-        link: this.verifyDataExists(item, 'volumeInfo.canonicalVolumeLink')
+        link: this.verifyDataExists(item, 'volumeInfo.canonicalVolumeLink'),
       });
     });
     return sortedData;
@@ -35,21 +35,18 @@ export class BookSearchData {
 
   verifyDataExists(obj, key) {
     if (_.has(obj, key)) {
-      if(_.get(obj, key)) {
-       return _.get(obj, key)
-     }
+      if (_.get(obj, key)) {
+        return _.get(obj, key);
+      }
     }
-
+    
     switch (key) {
       case ('volumeInfo.imageLinks.thumbnail'):
         return '../assets/img/no-image.png';
-        break;
       case ('volumeInfo.averageRating'):
         return 'not rated';
-        break;
       default:
         return 'not available';
     }
   }
-
 }

@@ -7,8 +7,8 @@ export class BookSearchData {
     this.apiCall = new APICall();
   }
 
-  async returnSortedData(query, maxResults = 10, orderBy = 'relevance') {
-    const data = await this.apiCall.getSearchResultData(query, maxResults, orderBy);
+  async returnSortedData(query, maxResults) {
+    const data = await this.apiCall.getSearchResultData(query, maxResults);
     return this.formatData(data);
   }
 
@@ -40,12 +40,14 @@ export class BookSearchData {
       }
     }
     switch (key) {
+      case ('volumeInfo.authors'):
+        return 'Author information unavailable'
       case ('volumeInfo.imageLinks.thumbnail'):
         return '../assets/img/no-image.png';
       case ('volumeInfo.averageRating'):
-        return 'not rated';
+        return 'Not rated';
       default:
-        return 'not available';
+        return 'Not available';
     }
   }
 }

@@ -19,10 +19,11 @@ function displayEmptyFieldWarning() {
 
 async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
+  const resultsToDisplay = document.getElementById('results-to-display').value;
   if (searchFieldInput.length === 0) {
     displayEmptyFieldWarning();
   } else {
-    const results = await bookSearchData.returnSortedData(searchFieldInput);
+    const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
     return displaySearchResults(results);
   }
 }
@@ -48,7 +49,7 @@ function displaySearchResults(results) {
     const link = document.createElement('p');
 
     title.innerHTML = book.title;
-    author.innerHTML = `by ${book.author}`;
+    author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: ${book.rating}`;
     image.src = book.image;

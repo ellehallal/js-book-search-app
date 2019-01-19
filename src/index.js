@@ -22,6 +22,7 @@ function displaySearchResults(results) {
   searchResults.innerHTML = ""
   results.forEach((book) => {
     const bookData = document.createElement('div');
+    bookData.classList.add('book-data')
     const title = document.createElement('p');
     const author = document.createElement('p');
     const publisher = document.createElement('p');
@@ -38,7 +39,7 @@ function displaySearchResults(results) {
 
     bookData.append(title,author,publisher,rating,link,image);
     console.log(bookData)
-    searchResults.appendChild(bookData)
+    searchResults.append(bookData)
   })
 
 }

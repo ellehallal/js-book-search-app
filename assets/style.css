@@ -19,3 +19,10 @@ h1 {
   text-align: center;
   font-size: 1.5em;
 }
+
+.container, .search, .book-data{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}

@@ -4,18 +4,30 @@ const bookSearchData = new BookSearchData();
 
 const submit = document.getElementById('submit');
 const searchResults = document.getElementById('search-results');
+const warningMessage = document.getElementById('warning-message');
 
-submit.addEventListener('click', async function () {
+
+submit.addEventListener('click', requestSearchResults);
+
+function displayEmptyFieldWarning(){
+  warningMessage.innerHTML = '<p id="warning">Please enter a search term</p>';
+  setTimeout(function(){
+      warningMessage.innerHTML = "";
+    },2000);
+}
+
+async function requestSearchResults(){
   const searchFieldInput = document.getElementById('search-field').value;
   if (searchFieldInput.length === 0) {
-    searchResults.prepend('Please enter a search term');
+    displayEmptyFieldWarning()
   } else {
     const results = await bookSearchData.returnSortedData(searchFieldInput);
     return displaySearchResults(results);
   }
-});
+}
 
 function displaySearchResults(results) {
+  warningMessage.innerHTML = '';
   searchResults.innerHTML = '';
   results.forEach((book) => {
     const bookData = document.createElement('div');

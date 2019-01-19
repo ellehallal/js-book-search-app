@@ -77,6 +77,21 @@ input[type="button"]{
   max-width: 80%;
   min-width: 80%;
   padding-top: 3vh;
+}
+
+#warning{
+  background-color: #D00000;
+  color: #FFF;
+  padding: 1%;
+  text-align: center;
+  min-width: 40vw;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 5px;
+  -webkit-box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
+  box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
 
 }
 

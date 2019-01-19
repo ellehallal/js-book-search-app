@@ -40,6 +40,18 @@ describe('Book Search Data class', () => {
       expect(checkWithEmptyData).toEqual('Sorry, no results found. Please try another search term.')
       expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.')
     });
+
+  });
+
+    it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {
+      const emptyData = {}
+      const emptyList = []
+      const checkWithEmptyData = bookSearchData.formatData(emptyData)
+      const checkWithEmptyList = bookSearchData.formatData(emptyList)
+
+      expect(checkWithEmptyData).toEqual('Sorry, no results found. Please try another search term.')
+      expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.')
+    });
   });
 
 });

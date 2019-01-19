@@ -9,8 +9,8 @@ html {
 body {
   color: #222;
   font-family: 'Roboto', sans-serif;
-  background-image: url("background.png");
-  background-size: cover;
+  background-image: url("./img/background.png");
+  background-repeat: repeat;
 }
 
 header{

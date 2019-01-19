@@ -2,9 +2,7 @@ import { BookSearchData } from './book_search_data';
 
 const bookSearchData = new BookSearchData();
 
-
 const submit = document.getElementById('submit');
-const submitQuery = document.getElementById('submit-query');
 const searchResults = document.getElementById('search-results')
 
 submit.addEventListener('click', async function (){
@@ -15,7 +13,6 @@ submit.addEventListener('click', async function (){
     const results = await bookSearchData.returnSortedData(searchFieldInput)
     return displaySearchResults(results)
   }
-
 })
 
 function displaySearchResults(results) {
@@ -23,6 +20,11 @@ function displaySearchResults(results) {
   results.forEach((book) => {
     const bookData = document.createElement('div');
     bookData.classList.add('book-data')
+    const bookDataText = document.createElement('div');
+    bookDataText.classList.add('book-data-text')
+    const bookDataImage = document.createElement('div');
+    bookDataImage.classList.add('book-data-image')
+
     const title = document.createElement('p');
     const author = document.createElement('p');
     const publisher = document.createElement('p');
@@ -37,8 +39,9 @@ function displaySearchResults(results) {
     link.innerHTML = book.link
     image.src = book.image
 
-    bookData.append(title,author,publisher,rating,link,image);
-    console.log(bookData)
+    bookDataImage.append(image);
+    bookDataText.append(title,author,publisher,rating,link);
+    bookData.append(bookDataImage, bookDataText);
     searchResults.append(bookData)
   })
 

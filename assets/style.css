@@ -19,6 +19,9 @@ h1 {
 
 hr {
   margin-bottom: 0;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0,0.75), rgba(0, 0, 0, 0));
 }
 
 a {
@@ -138,7 +141,6 @@ input[type="button"]{
   .book-data-text{
     max-width: 95%;
   }
-  
  }
 
  @media only screen and (min-width: 552px) and (max-width: 700px){

@@ -19,10 +19,11 @@ function displayEmptyFieldWarning() {
 
 async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
+  const resultsToDisplay = document.getElementById('results-to-display').value;
   if (searchFieldInput.length === 0) {
     displayEmptyFieldWarning();
   } else {
-    const results = await bookSearchData.returnSortedData(searchFieldInput);
+    const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
     return displaySearchResults(results);
   }
 }

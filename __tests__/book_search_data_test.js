@@ -23,12 +23,12 @@ describe('Book Search Data class', () => {
 
   describe('formatData()', () => {
 
-    const data = {"items": [{"volumeInfo": {"title": "Grenada", "datePublished": "2017-05-25", "price": 20, "authors": ["Maurice Bishop"], "publisher": null, "averageRating": null, "imageLinks": {"thumbnail": null}, "canonicalVolumeLink": "https://grenada.com"}}]}
+    const data = {"items": [{"volumeInfo": {"title": "Grenada", "datePublished": "2017-05-25", "price": 20, "authors": null, "publisher": null, "averageRating": null, "imageLinks": {"thumbnail": null}, "canonicalVolumeLink": "https://grenada.com"}}]}
 
     it('only returns the requested information from the data', () => {
       const formattedData = bookSearchData.formatData(data)
       expect(Object.keys(formattedData[0]).length).toEqual(6)
-      expect(formattedData).toEqual([{title: "Grenada", author: ["Maurice Bishop"], publisher: 'not available', rating: 'not rated', image: '../assets/img/no-image.png', link: "https://grenada.com"}])
+      expect(formattedData).toEqual([{title: "Grenada", author: 'Author information unavailable', publisher: 'Not available', rating: 'Not rated', image: '../assets/img/no-image.png', link: "https://grenada.com"}])
     });
 
     it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {

@@ -40,12 +40,14 @@ export class BookSearchData {
       }
     }
     switch (key) {
+      case ('volumeInfo.authors'):
+        return 'Author information unavailable'
       case ('volumeInfo.imageLinks.thumbnail'):
         return '../assets/img/no-image.png';
       case ('volumeInfo.averageRating'):
-        return 'not rated';
+        return 'Not rated';
       default:
-        return 'not available';
+        return 'Not available';
     }
   }
 }

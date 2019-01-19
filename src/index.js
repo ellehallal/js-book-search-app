@@ -49,7 +49,7 @@ function displaySearchResults(results) {
     const link = document.createElement('p');
 
     title.innerHTML = book.title;
-    author.innerHTML = `by ${book.author}`;
+    author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: ${book.rating}`;
     image.src = book.image;

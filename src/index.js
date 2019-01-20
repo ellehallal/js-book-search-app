@@ -15,6 +15,13 @@ function displayEmptyFieldWarning() {
   }, 2000);
 }
 
+function displayIncorrectValueWarning() {
+  warningMessage.innerHTML = '<p id="warning">Please select a number from 1 - 40</p>';
+  setTimeout(() => {
+    warningMessage.innerHTML = '';
+  }, 2000);
+}
+
 function displaySearchResults(results) {
   warningMessage.innerHTML = '';
   searchResults.innerHTML = '';
@@ -57,9 +64,15 @@ function displaySearchResults(results) {
 async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
   const resultsToDisplay = document.getElementById('results-to-display').value;
+
   if (searchFieldInput.length === 0) {
     return displayEmptyFieldWarning();
   }
+
+  if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
+    return displayIncorrectValueWarning();
+  }
+
   const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
   return displaySearchResults(results);
 }

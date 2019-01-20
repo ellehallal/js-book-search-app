@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   font-weight: 400;
   background-image: url("./img/background.png");
   background-repeat: repeat;
+  background-attachment: fixed;
 }
 
 header{
@@ -28,6 +30,10 @@ a {
   font-weight: 500;
   text-decoration: none;
   color: #D18023;
+}
+
+i{
+  color: #ED9B40;
 }
 
 #header-tagline {
@@ -96,6 +102,11 @@ input[type="button"]{
   -moz-box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
   box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
 
+}
+
+.display-search-term {
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .book-data {

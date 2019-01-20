@@ -1,5 +1,6 @@
+import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
-import { addBackToTop } from 'vanilla-back-to-top'
+
 
 const bookSearchData = new BookSearchData();
 
@@ -24,9 +25,9 @@ function displayIncorrectValueWarning() {
 
 function displaySearchResults(results) {
   const searchFieldInput = document.getElementById('search-field').value;
-  const displaySearchTerm = document.createElement('p')
-  displaySearchTerm.classList.add('display-search-term')
-  displaySearchTerm.innerHTML = `Displaying results for "${searchFieldInput}":`
+  const displaySearchTerm = document.createElement('p');
+  displaySearchTerm.classList.add('display-search-term');
+  displaySearchTerm.innerHTML = `Displaying results for "${searchFieldInput}":`;
 
   warningMessage.innerHTML = '';
   searchResults.innerHTML = '';
@@ -66,7 +67,7 @@ function displaySearchResults(results) {
     bookData.append(bookDataImage, bookDataText);
     searchResults.append(bookData);
   });
-  searchResults.prepend(displaySearchTerm)
+  searchResults.prepend(displaySearchTerm);
 }
 
 async function requestSearchResults() {
@@ -87,5 +88,5 @@ submit.addEventListener('click', requestSearchResults);
 addBackToTop({
   diameter: 56,
   backgroundColor: '#ED9B40',
-  textColor: '#FFF'
-})
+  textColor: '#FFF',
+});

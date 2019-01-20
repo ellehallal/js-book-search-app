@@ -1,7 +1,5 @@
 const fetch = require('node-fetch');
 
-if (process.env.NODE_ENV == 'development') require('dotenv').config({ silent: true });
-
 export class APICall {
   async getSearchResultData(query, maxResults) {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}`;

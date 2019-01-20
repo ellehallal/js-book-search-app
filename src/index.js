@@ -1,4 +1,6 @@
+import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
+
 
 const bookSearchData = new BookSearchData();
 
@@ -14,9 +16,22 @@ function displayEmptyFieldWarning() {
   }, 2000);
 }
 
+function displayIncorrectValueWarning() {
+  warningMessage.innerHTML = '<p id="warning">Please select a number from 1 - 40</p>';
+  setTimeout(() => {
+    warningMessage.innerHTML = '';
+  }, 2000);
+}
+
 function displaySearchResults(results) {
+  const searchFieldInput = document.getElementById('search-field').value;
+  const displaySearchTerm = document.createElement('p');
+  displaySearchTerm.classList.add('display-search-term');
+  displaySearchTerm.innerHTML = `Displaying results for "${searchFieldInput}":`;
+
   warningMessage.innerHTML = '';
   searchResults.innerHTML = '';
+
   results.forEach((book) => {
     const bookData = document.createElement('div');
     bookData.classList.add('book-data');
@@ -34,10 +49,11 @@ function displaySearchResults(results) {
     const image = document.createElement('img');
     const link = document.createElement('p');
 
+
     title.innerHTML = book.title;
     author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
-    rating.innerHTML = `Rating: ${book.rating}`;
+    rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
     image.src = book.image;
 
     if (book.link === 'not available') {
@@ -51,6 +67,7 @@ function displaySearchResults(results) {
     bookData.append(bookDataImage, bookDataText);
     searchResults.append(bookData);
   });
+  searchResults.prepend(displaySearchTerm);
 }
 
 async function requestSearchResults() {
@@ -59,8 +76,17 @@ async function requestSearchResults() {
   if (searchFieldInput.length === 0) {
     return displayEmptyFieldWarning();
   }
+  if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
+    return displayIncorrectValueWarning();
+  }
   const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
   return displaySearchResults(results);
 }
 
 submit.addEventListener('click', requestSearchResults);
+
+addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ED9B40',
+  textColor: '#FFF',
+});

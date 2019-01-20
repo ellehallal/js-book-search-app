@@ -1,4 +1,5 @@
 import { BookSearchData } from './book_search_data';
+import { addBackToTop } from 'vanilla-back-to-top'
 
 const bookSearchData = new BookSearchData();
 
@@ -64,3 +65,9 @@ async function requestSearchResults() {
 }
 
 submit.addEventListener('click', requestSearchResults);
+
+addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ED9B40',
+  textColor: '#FFF'
+})

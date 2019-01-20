@@ -131,7 +131,7 @@ input[type="button"]{
 
 @media only screen and (min-width: 320px) and (max-width: 551px){
   #search{
-    width: 60vw;
+    width: 90vw;
   }
   .book-data {
     flex-direction: column;
@@ -145,7 +145,7 @@ input[type="button"]{
 
  @media only screen and (min-width: 552px) and (max-width: 700px){
    #search{
-     width: 60vw;
+     width: 80vw;
    }
 
    .book-data {

@@ -43,7 +43,7 @@ describe('Book Search Data class', () => {
   });
 
   describe('verifyDataExists()', () => {
-    const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}"averageRating": null}};
+    const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}, "averageRating": null}};
 
     it('returns the value if the key exists, and the value is not null', () => {
       const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.title');
@@ -64,8 +64,5 @@ describe('Book Search Data class', () => {
       const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.canonicalVolumeLink');
       expect(formattedData).toEqual('Not available');
     });
-
   });
-
-
 });

@@ -5,9 +5,8 @@ export class BookSearchData {
     this.api = api;
   }
 
-  async returnFormattedData(query, maxResults) {
-    const data = await this.api.getSearchResultData(query, maxResults);
-    return this.formatData(data);
+  getSearchResultData(query, maxResults) {
+    return this.api.getSearchResultData(query, maxResults);
   }
 
   formatData(data) {
@@ -47,5 +46,10 @@ export class BookSearchData {
       default:
         return 'Not available';
     }
+  }
+
+  async returnFormattedData(query, maxResults) {
+    const data = await this.getSearchResultData(query, maxResults);
+    return this.formatData(data);
   }
 }

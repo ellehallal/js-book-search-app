@@ -8,6 +8,11 @@ const submit = document.getElementById('submit');
 const searchResults = document.getElementById('search-results');
 const warningMessage = document.getElementById('warning-message');
 
+addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ED9B40',
+  textColor: '#FFF',
+});
 
 function displayEmptyFieldWarning() {
   warningMessage.innerHTML = '<p id="warning">Please enter a search term</p>';
@@ -70,6 +75,14 @@ function displaySearchResults(results) {
   searchResults.prepend(displaySearchTerm);
 }
 
+function checkIfResultsEmpty(results) {
+  if (results === 'Sorry, no results found. Please try another search term.') {
+    return 'Sorry, no results found. Please try another search term.';
+  } else {
+    return displaySearchResults(results);
+  }
+}
+
 async function requestSearchResults() {
   const searchFieldInput = document.getElementById('search-field').value;
   const resultsToDisplay = document.getElementById('results-to-display').value;
@@ -79,14 +92,8 @@ async function requestSearchResults() {
   if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
     return displayIncorrectValueWarning();
   }
-  const results = await bookSearchData.returnSortedData(searchFieldInput, resultsToDisplay);
-  return displaySearchResults(results);
+  const results = await bookSearchData.returnFormattedData(searchFieldInput, resultsToDisplay);
+  return checkIfResultsEmpty(results);
 }
 
 submit.addEventListener('click', requestSearchResults);
-
-addBackToTop({
-  diameter: 56,
-  backgroundColor: '#ED9B40',
-  textColor: '#FFF',
-});

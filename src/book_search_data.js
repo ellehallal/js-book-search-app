@@ -7,21 +7,21 @@ export class BookSearchData {
     this.apiCall = new APICall();
   }
 
-  async returnSortedData(query, maxResults) {
+  async returnFormattedData(query, maxResults) {
     const data = await this.apiCall.getSearchResultData(query, maxResults);
     return this.formatData(data);
   }
 
   formatData(data) {
     const dataList = data.items;
-    const sortedData = [];
+    const formattedData = [];
 
     if (_.isEmpty(data) || _.isEmpty(dataList)) {
       return 'Sorry, no results found. Please try another search term.';
     }
 
     dataList.forEach((item) => {
-      sortedData.push({
+      formattedData.push({
         title: this.verifyDataExists(item, 'volumeInfo.title'),
         author: this.verifyDataExists(item, 'volumeInfo.authors'),
         publisher: this.verifyDataExists(item, 'volumeInfo.publisher'),
@@ -30,7 +30,7 @@ export class BookSearchData {
         link: this.verifyDataExists(item, 'volumeInfo.canonicalVolumeLink'),
       });
     });
-    return sortedData;
+    return formattedData;
   }
 
   verifyDataExists(obj, key) {

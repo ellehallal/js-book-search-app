@@ -1,5 +1,3 @@
-import { APICall } from './api_call';
-
 const _ = require('lodash');
 
 export class BookSearchData {

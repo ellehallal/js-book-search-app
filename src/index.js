@@ -1,8 +1,9 @@
 import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
+import { APICall } from './api_call';
 
-
-const bookSearchData = new BookSearchData();
+const api = new APICall()
+const bookSearchData = new BookSearchData(api);
 
 const submit = document.getElementById('submit');
 const searchResults = document.getElementById('search-results');
@@ -78,9 +79,9 @@ function displaySearchResults(results) {
 function checkIfResultsEmpty(results) {
   if (results === 'Sorry, no results found. Please try another search term.') {
     return 'Sorry, no results found. Please try another search term.';
-  } else {
-    return displaySearchResults(results);
   }
+  return displaySearchResults(results);
+
 }
 
 async function requestSearchResults() {

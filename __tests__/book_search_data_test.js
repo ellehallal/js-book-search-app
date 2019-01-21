@@ -10,10 +10,10 @@ describe('Book Search Data class', () => {
      bookSearchData = new BookSearchData();
    });
 
-  describe('returnSortedData()', () => {
+  describe('returnFormattedData()', () => {
 
-    it('mock - checks if returnSortedData calls the APICall function, getSearchResultData', () => {
-      const data = bookSearchData.returnSortedData("Harry Potter", 10);
+    it('mock - checks if returnFormattedData calls the APICall function, getSearchResultData', () => {
+      const data = bookSearchData.returnFormattedData("Harry Potter", 10);
       const mockAPICallInstance = APICall.mock.instances[0];
       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);

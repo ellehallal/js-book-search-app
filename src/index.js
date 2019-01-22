@@ -1,8 +1,9 @@
 import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
+import { APICall } from './api_call';
 
-
-const bookSearchData = new BookSearchData();
+const api = new APICall()
+const bookSearchData = new BookSearchData(api);
 
 const submit = document.getElementById('submit');
 const searchResults = document.getElementById('search-results');
@@ -28,14 +29,23 @@ function displayIncorrectValueWarning() {
   }, 2000);
 }
 
+function formatBookLink(key){
+  if (key === 'Not available') {
+    return 'Further information unavailable for this book';
+  }
+  return `<a href="${key}" target="_blank">More information</a>`;
+}
+
+function resetDisplay() {
+  warningMessage.innerHTML = '';
+  searchResults.innerHTML = '';
+}
+
 function displaySearchResults(results) {
   const searchFieldInput = document.getElementById('search-field').value;
   const displaySearchTerm = document.createElement('p');
   displaySearchTerm.classList.add('display-search-term');
   displaySearchTerm.innerHTML = `Displaying results for "${searchFieldInput}":`;
-
-  warningMessage.innerHTML = '';
-  searchResults.innerHTML = '';
 
   results.forEach((book) => {
     const bookData = document.createElement('div');
@@ -59,13 +69,8 @@ function displaySearchResults(results) {
     author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
+    link.innerHTML = formatBookLink(book.link)
     image.src = book.image;
-
-    if (book.link === 'not available') {
-      link.innerHTML = 'Sorry, further information is not available for this book';
-    } else {
-      link.innerHTML = `<a href="${book.link}" target="_blank">Click here</a>  for more information`;
-    }
 
     bookDataImage.append(image);
     bookDataText.append(title, hr, author, publisher, rating, link);
@@ -76,11 +81,11 @@ function displaySearchResults(results) {
 }
 
 function checkIfResultsEmpty(results) {
+  resetDisplay()
   if (results === 'Sorry, no results found. Please try another search term.') {
     return 'Sorry, no results found. Please try another search term.';
-  } else {
-    return displaySearchResults(results);
   }
+  return displaySearchResults(results);
 }
 
 async function requestSearchResults() {

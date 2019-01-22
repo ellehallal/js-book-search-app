@@ -6,13 +6,26 @@ jest.mock('../src/api_call');
 describe('Book Search Data class', () => {
 
   let bookSearchData;
+  let api;
    beforeEach(() => {
-     bookSearchData = new BookSearchData();
+     api = new APICall()
+     bookSearchData = new BookSearchData(api);
+   });
+
+   describe('getSearchResultData()', () => {
+
+     it('mock - checks if getSearchResultData calls the api class function, getSearchResultData', () => {
+       const data = bookSearchData.getSearchResultData("Harry Potter", 10);
+       const mockAPICallInstance = APICall.mock.instances[0];
+       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
+       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
+       expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
+     });
    });
 
   describe('returnFormattedData()', () => {
 
-    it('mock - checks if returnFormattedData calls the APICall function, getSearchResultData', () => {
+    it('checks if returnFormattedData calls the api class function, getSearchResultData', () => {
       const data = bookSearchData.returnFormattedData("Harry Potter", 10);
       const mockAPICallInstance = APICall.mock.instances[0];
       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;

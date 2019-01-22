@@ -49,7 +49,14 @@ export class BookSearchData {
   }
 
   async returnFormattedData(query, maxResults) {
-    const data = await this.getSearchResultData(query, maxResults);
-    return this.formatData(data);
+    try {
+      const data = await this.getSearchResultData(query, maxResults);
+      return this.formatData(data);
+
+      if (_.isEqual(data, `${query} not found`)) return `${query} not found`;
+      return data;
+    } catch (error) {
+      return `${query}: Unexpected error occurred`;
+    }
   }
 }

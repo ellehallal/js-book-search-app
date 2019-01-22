@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const _ = require('lodash');
 
 export class APICall {
   async getSearchResultData(query, maxResults) {
@@ -8,7 +9,7 @@ export class APICall {
       const response = await fetch(`${url}&key=${process.env.KEY}`);
       const data = await response.json();
 
-      if (!data) return `${query} not found`;
+      if (_.isEmpty(data)) return `${query} not found`;
       return data;
     } catch (error) {
       return `${query}: Unexpected error occurred`;

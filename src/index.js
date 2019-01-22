@@ -29,6 +29,13 @@ function displayIncorrectValueWarning() {
   }, 2000);
 }
 
+function formatBookLink(key){
+  if (key === 'Not available') {
+    return 'Further information unavailable for this book';
+  }
+  return `<a href="${key}" target="_blank">More information</a>`;
+}
+
 function displaySearchResults(results) {
   const searchFieldInput = document.getElementById('search-field').value;
   const displaySearchTerm = document.createElement('p');
@@ -60,13 +67,8 @@ function displaySearchResults(results) {
     author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
+    link.innerHTML = formatBookLink(book.link)
     image.src = book.image;
-
-    if (book.link === 'not available') {
-      link.innerHTML = 'Sorry, further information is not available for this book';
-    } else {
-      link.innerHTML = `<a href="${book.link}" target="_blank">Click here</a>  for more information`;
-    }
 
     bookDataImage.append(image);
     bookDataText.append(title, hr, author, publisher, rating, link);
@@ -81,7 +83,6 @@ function checkIfResultsEmpty(results) {
     return 'Sorry, no results found. Please try another search term.';
   }
   return displaySearchResults(results);
-
 }
 
 async function requestSearchResults() {

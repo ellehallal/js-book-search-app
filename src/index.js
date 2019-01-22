@@ -36,14 +36,16 @@ function formatBookLink(key){
   return `<a href="${key}" target="_blank">More information</a>`;
 }
 
+function resetDisplay() {
+  warningMessage.innerHTML = '';
+  searchResults.innerHTML = '';
+}
+
 function displaySearchResults(results) {
   const searchFieldInput = document.getElementById('search-field').value;
   const displaySearchTerm = document.createElement('p');
   displaySearchTerm.classList.add('display-search-term');
   displaySearchTerm.innerHTML = `Displaying results for "${searchFieldInput}":`;
-
-  warningMessage.innerHTML = '';
-  searchResults.innerHTML = '';
 
   results.forEach((book) => {
     const bookData = document.createElement('div');
@@ -79,6 +81,7 @@ function displaySearchResults(results) {
 }
 
 function checkIfResultsEmpty(results) {
+  resetDisplay()
   if (results === 'Sorry, no results found. Please try another search term.') {
     return 'Sorry, no results found. Please try another search term.';
   }

@@ -2,7 +2,7 @@ import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
 import { APICall } from './api_call';
 
-const api = new APICall()
+const api = new APICall();
 const bookSearchData = new BookSearchData(api);
 
 const submit = document.getElementById('submit');
@@ -29,7 +29,7 @@ function displayIncorrectValueWarning() {
   }, 2000);
 }
 
-function formatBookLink(key){
+function formatBookLink(key) {
   if (key === 'Not available') {
     return 'Further information unavailable for this book';
   }
@@ -64,12 +64,11 @@ function displaySearchResults(results) {
     const image = document.createElement('img');
     const link = document.createElement('p');
 
-
     title.innerHTML = book.title;
     author.innerHTML = book.author;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
-    link.innerHTML = formatBookLink(book.link)
+    link.innerHTML = formatBookLink(book.link);
     image.src = book.image;
 
     bookDataImage.append(image);
@@ -81,7 +80,7 @@ function displaySearchResults(results) {
 }
 
 function checkIfResultsEmpty(results) {
-  resetDisplay()
+  resetDisplay();
   if (results === 'Sorry, no results found. Please try another search term.') {
     return 'Sorry, no results found. Please try another search term.';
   }

@@ -93,7 +93,7 @@ async function requestSearchResults() {
   if (searchFieldInput.length === 0) {
     return displayEmptyFieldWarning();
   }
-  if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
+  if (resultsToDisplay || resultsToDisplay > 40) {
     return displayIncorrectValueWarning();
   }
   const results = await bookSearchData.returnFormattedData(searchFieldInput, resultsToDisplay);

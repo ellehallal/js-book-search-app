@@ -77,5 +77,10 @@ describe('Book Search Data class', () => {
       const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.canonicalVolumeLink');
       expect(formattedData).toEqual('Not available');
     });
+
+    it('returns "Not Rated" if the "averageRating" key does not exist', () => {
+      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.averageRating');
+      expect(formattedData).toEqual('Not rated');
+    });
   });
 });

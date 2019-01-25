@@ -19,12 +19,12 @@ export class BookSearchData {
 
     dataList.forEach((item) => {
       formattedData.push({
-        title: this.verifyDataExists(item, 'volumeInfo.title'),
-        author: this.verifyDataExists(item, 'volumeInfo.authors'),
-        publisher: this.verifyDataExists(item, 'volumeInfo.publisher'),
-        rating: this.verifyDataExists(item, 'volumeInfo.averageRating'),
-        image: this.verifyDataExists(item, 'volumeInfo.imageLinks.thumbnail'),
-        link: this.verifyDataExists(item, 'volumeInfo.canonicalVolumeLink'),
+        title: this.setValue(item, 'volumeInfo.title'),
+        author: this.setValue(item, 'volumeInfo.authors'),
+        publisher: this.setValue(item, 'volumeInfo.publisher'),
+        rating: this.setValue(item, 'volumeInfo.averageRating'),
+        image: this.setValue(item, 'volumeInfo.imageLinks.thumbnail'),
+        link: this.setValue(item, 'volumeInfo.canonicalVolumeLink'),
       });
     });
     return formattedData;
@@ -33,8 +33,15 @@ export class BookSearchData {
   verifyDataExists(obj, key) {
     if (_.has(obj, key)) {
       if (_.get(obj, key)) {
-        return _.get(obj, key);
+        return true;
       }
+    }
+    return false
+  }
+
+  setValue(obj, key) {
+    if (this.verifyDataExists(obj, key)) {
+      return _.get(obj, key);
     }
     switch (key) {
       case ('volumeInfo.authors'):

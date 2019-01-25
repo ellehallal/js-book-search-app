@@ -56,30 +56,49 @@ describe('Book Search Data class', () => {
   });
 
   describe('verifyDataExists()', () => {
+    const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}}};
+
+    it('returns true if the key and value exists', () => {
+      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.title');
+      expect(formattedData).toEqual(true);
+    });
+
+    it('returns false if the key but the value is null', () => {
+      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.authors');
+      expect(formattedData).toEqual(false);
+    });
+
+    it('returns false if the key does not exist', () => {
+      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.averageRating');
+      expect(formattedData).toEqual(false);
+    });
+  });
+
+  describe('setValue()', () => {
     const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}, "averageRating": null}};
 
     it('returns the value if the key exists, and the value is not null', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.title');
+      const formattedData = bookSearchData.setValue(data, 'volumeInfo.title');
       expect(formattedData).toEqual('Grenada');
     });
 
     it('returns "Author information unavailable" if the value of authors is null', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.authors');
+      const formattedData = bookSearchData.setValue(data, 'volumeInfo.authors');
       expect(formattedData).toEqual('Author information unavailable');
     });
 
     it('returns "./assets/img/no-image.png" if the value of thumbnail is null', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.imageLinks.thumbnail');
+      const formattedData = bookSearchData.setValue(data, 'volumeInfo.imageLinks.thumbnail');
       expect(formattedData).toEqual('./assets/img/no-image.png');
     });
 
     it('returns "Not available" if the key does not exist', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.canonicalVolumeLink');
+      const formattedData = bookSearchData.setValue(data, 'volumeInfo.canonicalVolumeLink');
       expect(formattedData).toEqual('Not available');
     });
 
     it('returns "Not Rated" if the "averageRating" key does not exist', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.averageRating');
+      const formattedData = bookSearchData.setValue(data, 'volumeInfo.averageRating');
       expect(formattedData).toEqual('Not rated');
     });
   });

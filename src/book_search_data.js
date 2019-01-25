@@ -41,15 +41,6 @@ export class BookSearchData {
     }
   }
 
-  verifyDataExists(obj, key) {
-    if (_.has(obj, key)) {
-      if (_.get(obj, key)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   setValue(obj, key) {
     if (this.verifyDataExists(obj, key)) {
       return _.get(obj, key);
@@ -64,5 +55,14 @@ export class BookSearchData {
       default:
         return 'Not available';
     }
+  }
+
+  verifyDataExists(obj, key) {
+    if (_.has(obj, key)) {
+      if (_.get(obj, key)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

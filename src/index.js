@@ -1,8 +1,8 @@
 import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
-import { APICall } from './api_call';
+import { GoogleBooksAPI } from './google_books_api';
 
-const api = new APICall();
+const api = new GoogleBooksAPI();
 const bookSearchData = new BookSearchData(api);
 
 const submit = document.getElementById('submit');

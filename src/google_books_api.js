@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const _ = require('lodash');
 
-export class APICall {
+export class GoogleBooksAPI {
   async getSearchResultData(query, maxResults) {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}`;
 

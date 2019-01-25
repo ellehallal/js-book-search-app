@@ -1,14 +1,14 @@
 import { BookSearchData } from '../src/book_search_data';
-import { APICall } from '../src/api_call';
+import { GoogleBooksAPI } from '../src/google_books_api';
 
-jest.mock('../src/api_call');
+jest.mock('../src/google_books_api');
 
 describe('Book Search Data class', () => {
 
   let bookSearchData;
   let api;
    beforeEach(() => {
-     api = new APICall()
+     api = new GoogleBooksAPI();
      bookSearchData = new BookSearchData(api);
    });
 
@@ -16,7 +16,7 @@ describe('Book Search Data class', () => {
 
      it('mock - checks if getSearchResultData calls the api class function, getSearchResultData', () => {
        const data = bookSearchData.getSearchResultData("Harry Potter", 10);
-       const mockAPICallInstance = APICall.mock.instances[0];
+       const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
        const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
        expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
        expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
@@ -27,7 +27,7 @@ describe('Book Search Data class', () => {
 
     it('checks if returnFormattedData calls the api class function, getSearchResultData', () => {
       const data = bookSearchData.returnFormattedData("Harry Potter", 10);
-      const mockAPICallInstance = APICall.mock.instances[0];
+      const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
       expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);

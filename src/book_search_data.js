@@ -10,21 +10,20 @@ export class BookSearchData {
   }
 
   formatData(data) {
-    const dataList = data.items;
     const formattedData = [];
 
-    if (_.isEmpty(data) || _.isEmpty(dataList)) {
+    if (_.isEmpty(data)) {
       return 'Sorry, no results found. Please try another search term.';
     }
 
-    dataList.forEach((item) => {
+    data.forEach((book) => {
       formattedData.push({
-        title: this.setValue(item, 'volumeInfo.title'),
-        author: this.setValue(item, 'volumeInfo.authors'),
-        publisher: this.setValue(item, 'volumeInfo.publisher'),
-        rating: this.setValue(item, 'volumeInfo.averageRating'),
-        image: this.setValue(item, 'volumeInfo.imageLinks.thumbnail'),
-        link: this.setValue(item, 'volumeInfo.canonicalVolumeLink'),
+        title: this.setValue(book, 'volumeInfo.title'),
+        author: this.setValue(book, 'volumeInfo.authors'),
+        publisher: this.setValue(book, 'volumeInfo.publisher'),
+        rating: this.setValue(book, 'volumeInfo.averageRating'),
+        image: this.setValue(book, 'volumeInfo.imageLinks.thumbnail'),
+        link: this.setValue(book, 'volumeInfo.canonicalVolumeLink'),
       });
     });
     return formattedData;

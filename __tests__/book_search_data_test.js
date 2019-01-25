@@ -37,17 +37,14 @@ describe('Book Search Data class', () => {
   describe('formatData()', () => {
 
     it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {
-      const emptyData = {};
-      const emptyList = [];
-      const checkWithEmptyData = bookSearchData.formatData(emptyData);
-      const checkWithEmptyList = bookSearchData.formatData(emptyList);
+      const emptyData = [];
+      const formattedData = bookSearchData.formatData(emptyData);
 
-      expect(checkWithEmptyData).toEqual('Sorry, no results found. Please try another search term.');
-      expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.');
+      expect(formattedData).toEqual('Sorry, no results found. Please try another search term.');
     });
 
     it('only returns the requested information from the data', () => {
-      const data = {"items": [{"volumeInfo": {"title": "Grenada", "datePublished": "2017-05-25", "price": 20, "authors": ["Maurice Bishop"], "publisher": "Spice Isle Books", "averageRating": 5, "imageLinks": {"thumbnail": 'https://test.com/test.png'}, "canonicalVolumeLink": "https://grenada.com"}}]};
+      const data = [{"volumeInfo": {"title": "Grenada", "datePublished": "2017-05-25", "price": 20, "authors": ["Maurice Bishop"], "publisher": "Spice Isle Books", "averageRating": 5, "imageLinks": {"thumbnail": 'https://test.com/test.png'}, "canonicalVolumeLink": "https://grenada.com"}}];
       const formattedData = bookSearchData.formatData(data);
 
       expect(Object.keys(formattedData[0]).length).toEqual(6);
@@ -69,7 +66,7 @@ describe('Book Search Data class', () => {
     });
 
     it('returns false if the key does not exist', () => {
-      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.averageRating');
+      const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.averageRaing');
       expect(formattedData).toEqual(false);
     });
   });

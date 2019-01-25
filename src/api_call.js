@@ -10,7 +10,7 @@ export class APICall {
       const data = await response.json();
 
       if (_.isEmpty(data)) return `${query} not found`;
-      return data;
+      return data.items;
     } catch (error) {
       return `${query}: Unexpected error occurred`;
     }

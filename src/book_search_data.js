@@ -12,8 +12,8 @@ export class BookSearchData {
   formatData(data) {
     const formattedData = [];
 
-    if (_.isEmpty(data)) {
-      return 'Sorry, no results found. Please try another search term.';
+    if (data === 'Unexpected error occurred') {
+      return 'Sorry, an unexpected error occured. Please try again.';
     }
 
     data.forEach((book) => {
@@ -31,13 +31,15 @@ export class BookSearchData {
 
   async returnFormattedData(query, maxResults) {
     try {
-      const data = await this.getSearchResultData(query, maxResults);
-      if (_.isEqual(data, `${query} not found`)) {
-        return `${query} not found`;
+      const response = await this.getSearchResultData(query, maxResults);
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
       }
-      return this.formatData(data);
+      throw new Error('Unexpected error occurred');
     } catch (error) {
-      return `${query}: Unexpected error occurred`;
+      return error;
     }
   }
 

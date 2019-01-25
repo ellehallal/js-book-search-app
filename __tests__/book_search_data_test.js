@@ -36,11 +36,11 @@ describe('Book Search Data class', () => {
 
   describe('formatData()', () => {
 
-    it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {
-      const emptyData = [];
+    it('returns "Sorry, an unexpected error occured. Please try again." if an error occurred', () => {
+      const emptyData = 'Unexpected error occurred';
       const formattedData = bookSearchData.formatData(emptyData);
 
-      expect(formattedData).toEqual('Sorry, no results found. Please try another search term.');
+      expect(formattedData).toEqual('Sorry, an unexpected error occured. Please try again.');
     });
 
     it('only returns the requested information from the data', () => {

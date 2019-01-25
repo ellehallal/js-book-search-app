@@ -81,8 +81,8 @@ function displaySearchResults(results) {
 
 function checkIfResultsEmpty(results) {
   resetDisplay();
-  if (results === 'Sorry, no results found. Please try another search term.') {
-    return 'Sorry, no results found. Please try another search term.';
+  if (results === 'Sorry, an unexpected error occured. Please try again.') {
+    return results;
   }
   return displaySearchResults(results);
 }

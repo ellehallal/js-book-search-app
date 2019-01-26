@@ -51,7 +51,7 @@ describe('Book Search Data class', () => {
       const formattedData = bookSearchData.formatData(data);
 
       expect(Object.keys(formattedData[0]).length).toEqual(6);
-      expect(formattedData).toEqual([{title: "Grenada", author: ["Maurice Bishop"], publisher: "Spice Isle Books", rating: 5, image: 'https://test.com/test.png', link: "https://grenada.com"}]);
+      expect(formattedData).toEqual([{title: "Grenada", author: "Maurice Bishop", publisher: "Spice Isle Books", rating: 5, image: 'https://test.com/test.png', link: "https://grenada.com"}]);
     });
   });
 
@@ -84,7 +84,7 @@ describe('Book Search Data class', () => {
 
     it('returns "Author information unavailable" if the value of authors is null', () => {
       const formattedData = bookSearchData.setValue(data, 'volumeInfo.authors');
-      expect(formattedData).toEqual('Author information unavailable');
+      expect(formattedData).toEqual(['Author information unavailable']);
     });
 
     it('returns "./assets/img/no-image.png" if the value of thumbnail is null', () => {

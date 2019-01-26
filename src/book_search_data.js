@@ -20,7 +20,7 @@ export class BookSearchData {
     dataList.forEach((item) => {
       formattedData.push({
         title: this.setValue(item, 'volumeInfo.title'),
-        author: this.setValue(item, 'volumeInfo.authors'),
+        author: (this.setValue(item, 'volumeInfo.authors')).join(', '),
         publisher: this.setValue(item, 'volumeInfo.publisher'),
         rating: this.setValue(item, 'volumeInfo.averageRating'),
         image: this.setValue(item, 'volumeInfo.imageLinks.thumbnail'),
@@ -36,7 +36,7 @@ export class BookSearchData {
         return true;
       }
     }
-    return false
+    return false;
   }
 
   setValue(obj, key) {
@@ -45,7 +45,7 @@ export class BookSearchData {
     }
     switch (key) {
       case ('volumeInfo.authors'):
-        return 'Author information unavailable';
+        return ['Author information unavailable'];
       case ('volumeInfo.imageLinks.thumbnail'):
         return './assets/img/no-image.png';
       case ('volumeInfo.averageRating'):

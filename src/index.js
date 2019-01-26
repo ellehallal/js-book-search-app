@@ -65,7 +65,7 @@ function displaySearchResults(results) {
     const link = document.createElement('p');
 
     title.innerHTML = book.title;
-    author.innerHTML = book.author;
+    author.innerHTML = `by: ${book.author}`;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
     link.innerHTML = formatBookLink(book.link);

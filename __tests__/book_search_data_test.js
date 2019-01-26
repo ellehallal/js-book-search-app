@@ -1,14 +1,14 @@
 import { BookSearchData } from '../src/book_search_data';
-import { APICall } from '../src/api_call';
+import { GoogleBooksAPI } from '../src/google_books_api';
 
-jest.mock('../src/api_call');
+jest.mock('../src/google_books_api');
 
 describe('Book Search Data class', () => {
 
   let bookSearchData;
   let api;
    beforeEach(() => {
-     api = new APICall()
+     api = new GoogleBooksAPI()
      bookSearchData = new BookSearchData(api);
    });
 
@@ -16,7 +16,7 @@ describe('Book Search Data class', () => {
 
      it('mock - checks if getSearchResultData calls the api class function, getSearchResultData', () => {
        const data = bookSearchData.getSearchResultData("Harry Potter", 10);
-       const mockAPICallInstance = APICall.mock.instances[0];
+       const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
        const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
        expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
        expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
@@ -27,7 +27,7 @@ describe('Book Search Data class', () => {
 
     it('checks if returnFormattedData calls the api class function, getSearchResultData', () => {
       const data = bookSearchData.returnFormattedData("Harry Potter", 10);
-      const mockAPICallInstance = APICall.mock.instances[0];
+      const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
       expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
@@ -36,14 +36,11 @@ describe('Book Search Data class', () => {
 
   describe('formatData()', () => {
 
-    it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {
-      const emptyData = {};
-      const emptyList = [];
+    it('returns "Unexpected error occurred" if no results returned from search', () => {
+      const emptyData = 'Unexpected error occurred';
       const checkWithEmptyData = bookSearchData.formatData(emptyData);
-      const checkWithEmptyList = bookSearchData.formatData(emptyList);
 
-      expect(checkWithEmptyData).toEqual('Sorry, no results found. Please try another search term.');
-      expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.');
+      expect(checkWithEmptyData).toEqual('Unexpected error occurred');
     });
 
     it('only returns the requested information from the data', () => {
@@ -51,7 +48,7 @@ describe('Book Search Data class', () => {
       const formattedData = bookSearchData.formatData(data);
 
       expect(Object.keys(formattedData[0]).length).toEqual(6);
-      expect(formattedData).toEqual([{title: "Grenada", author: ["Maurice Bishop"], publisher: "Spice Isle Books", rating: 5, image: 'https://test.com/test.png', link: "https://grenada.com"}]);
+      expect(formattedData).toEqual([{title: "Grenada", author: "Maurice Bishop", publisher: "Spice Isle Books", rating: 5, image: 'https://test.com/test.png', link: "https://grenada.com"}]);
     });
   });
 
@@ -84,7 +81,7 @@ describe('Book Search Data class', () => {
 
     it('returns "Author information unavailable" if the value of authors is null', () => {
       const formattedData = bookSearchData.setValue(data, 'volumeInfo.authors');
-      expect(formattedData).toEqual('Author information unavailable');
+      expect(formattedData).toEqual(['Author information unavailable']);
     });
 
     it('returns "./assets/img/no-image.png" if the value of thumbnail is null', () => {

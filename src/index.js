@@ -1,8 +1,8 @@
 import { addBackToTop } from 'vanilla-back-to-top';
 import { BookSearchData } from './book_search_data';
-import { APICall } from './api_call';
+import { GoogleBooksAPI } from './google_books_api';
 
-const api = new APICall();
+const api = new GoogleBooksAPI();
 const bookSearchData = new BookSearchData(api);
 
 const submit = document.getElementById('submit');
@@ -65,7 +65,7 @@ function displaySearchResults(results) {
     const link = document.createElement('p');
 
     title.innerHTML = book.title;
-    author.innerHTML = book.author;
+    author.innerHTML = `by: ${book.author}`;
     publisher.innerHTML = `Publisher: ${book.publisher}`;
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
     link.innerHTML = formatBookLink(book.link);
@@ -81,8 +81,8 @@ function displaySearchResults(results) {
 
 function checkIfResultsEmpty(results) {
   resetDisplay();
-  if (results === 'Sorry, no results found. Please try another search term.') {
-    return 'Sorry, no results found. Please try another search term.';
+  if (results === 'Unexpected error occurred') {
+    return 'An unexpected error occurred. Please try again.';
   }
   return displaySearchResults(results);
 }
@@ -93,7 +93,7 @@ async function requestSearchResults() {
   if (searchFieldInput.length === 0) {
     return displayEmptyFieldWarning();
   }
-  if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
+  if (!resultsToDisplay || resultsToDisplay < 1 || resultsToDisplay > 40) {
     return displayIncorrectValueWarning();
   }
   const results = await bookSearchData.returnFormattedData(searchFieldInput, resultsToDisplay);

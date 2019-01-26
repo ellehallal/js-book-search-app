@@ -81,8 +81,8 @@ function displaySearchResults(results) {
 
 function checkIfResultsEmpty(results) {
   resetDisplay();
-  if (results === 'Sorry, no results found. Please try another search term.') {
-    return 'Sorry, no results found. Please try another search term.';
+  if (results === 'Unexpected error occurred') {
+    return 'An unexpected error occurred. Please try again.';
   }
   return displaySearchResults(results);
 }
@@ -93,7 +93,7 @@ async function requestSearchResults() {
   if (searchFieldInput.length === 0) {
     return displayEmptyFieldWarning();
   }
-  if (resultsToDisplay.length === 0 || resultsToDisplay < 1 || resultsToDisplay > 40) {
+  if (!resultsToDisplay || resultsToDisplay < 1 || resultsToDisplay > 40) {
     return displayIncorrectValueWarning();
   }
   const results = await bookSearchData.returnFormattedData(searchFieldInput, resultsToDisplay);

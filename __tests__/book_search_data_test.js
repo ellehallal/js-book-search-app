@@ -36,14 +36,11 @@ describe('Book Search Data class', () => {
 
   describe('formatData()', () => {
 
-    it('returns "Sorry, no results found. Please try another search term." if no results returned from search', () => {
-      const emptyData = {};
-      const emptyList = [];
+    it('returns "Unexpected error occurred" if no results returned from search', () => {
+      const emptyData = 'Unexpected error occurred';
       const checkWithEmptyData = bookSearchData.formatData(emptyData);
-      const checkWithEmptyList = bookSearchData.formatData(emptyList);
 
-      expect(checkWithEmptyData).toEqual('Sorry, no results found. Please try another search term.');
-      expect(checkWithEmptyList).toEqual('Sorry, no results found. Please try another search term.');
+      expect(checkWithEmptyData).toEqual('Unexpected error occurred');
     });
 
     it('only returns the requested information from the data', () => {

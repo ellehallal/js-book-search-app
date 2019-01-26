@@ -9,12 +9,21 @@ export class BookSearchData {
     return this.api.getSearchResultData(query, maxResults);
   }
 
+  async returnFormattedData(query, maxResults) {
+    try {
+      const data = await this.getSearchResultData(query, maxResults);
+      return this.formatData(data);
+    } catch (error) {
+      return 'Unexpected error occurred';
+    }
+  }
+
   formatData(data) {
     const dataList = data.items;
     const formattedData = [];
 
-    if (_.isEmpty(data) || _.isEmpty(dataList)) {
-      return 'Sorry, no results found. Please try another search term.';
+    if (data === 'Unexpected error occurred') {
+      return data;
     }
 
     dataList.forEach((item) => {
@@ -52,18 +61,6 @@ export class BookSearchData {
         return 'Not rated';
       default:
         return 'Not available';
-    }
-  }
-
-  async returnFormattedData(query, maxResults) {
-    try {
-      const data = await this.getSearchResultData(query, maxResults);
-      if (_.isEqual(data, `${query} not found`)) {
-        return `${query} not found`;
-      }
-      return this.formatData(data);
-    } catch (error) {
-      return `${query}: Unexpected error occurred`;
     }
   }
 }

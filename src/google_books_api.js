@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const _ = require('lodash');
 
 export class GoogleBooksAPI {
   async getSearchResultData(query, maxResults) {
@@ -7,12 +6,9 @@ export class GoogleBooksAPI {
 
     try {
       const response = await fetch(`${url}&key=${process.env.KEY}`);
-      const data = await response.json();
-
-      if (_.isEmpty(data)) return `${query} not found`;
-      return data;
+      return await response.json();
     } catch (error) {
-      return `${query}: Unexpected error occurred`;
+      return 'Unexpected error occurred';
     }
   }
 }

@@ -32,6 +32,10 @@ a {
   color: #D18023;
 }
 
+a:hover {
+  color: #909090;
+}
+
 i{
   color: #ED9B40;
 }

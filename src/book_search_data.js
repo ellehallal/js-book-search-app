@@ -32,7 +32,7 @@ export class BookSearchData {
         author: (this.setValue(item, 'volumeInfo.authors')).join(', '),
         publisher: this.setValue(item, 'volumeInfo.publisher'),
         rating: this.setValue(item, 'volumeInfo.averageRating'),
-        image: this.setValue(item, 'volumeInfo.imageLinks.thumbnail'),
+        image: this.httpToHttps(this.setValue(item, 'volumeInfo.imageLinks.thumbnail')),
         link: this.setValue(item, 'volumeInfo.canonicalVolumeLink'),
       });
     });
@@ -62,5 +62,9 @@ export class BookSearchData {
       default:
         return 'Not available';
     }
+  }
+
+  httpToHttps(string) {
+    return string.replace('http://', 'https://');
   }
 }

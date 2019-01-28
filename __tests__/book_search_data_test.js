@@ -99,4 +99,11 @@ describe('Book Search Data class', () => {
       expect(formattedData).toEqual('Not rated');
     });
   });
+
+  describe('httpToHttps()', () => {
+    it('replaces http in a string with https', () => {
+      const secureLink = bookSearchData.httpToHttps('http://hello.com/img.png')
+      expect(secureLink).toEqual('https://hello.com/img.png');
+    });
+  });
 });

@@ -24,6 +24,8 @@ export class BookSearchData {
 
     if (data === 'Unexpected error occurred') {
       return data;
+    } if (data.totalItems === 0) {
+      return 'No results found. Please try again.';
     }
 
     dataList.forEach((item) => {

@@ -79,10 +79,19 @@ function displaySearchResults(results) {
   searchResults.prepend(displaySearchTerm);
 }
 
+function displayError(message) {
+  const error = document.createElement('p');
+  error.classList.add('display-error');
+  error.innerHTML = message;
+  searchResults.prepend(error);
+}
+
 function checkIfResultsEmpty(results) {
   resetDisplay();
   if (results === 'Unexpected error occurred') {
-    return 'An unexpected error occurred. Please try again.';
+    return displayError(results);
+  } if (results === 'No results found. Please try again.') {
+    return displayError(results);
   }
   return displaySearchResults(results);
 }

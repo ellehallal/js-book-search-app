@@ -92,7 +92,7 @@ input[type="button"]{
   padding-top: 3vh;
 }
 
-#warning{
+#warning {
   background-color: #D00000;
   color: #FFF;
   padding: 1%;
@@ -106,6 +106,14 @@ input[type="button"]{
   -moz-box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
   box-shadow: 7px 7px 5px 0px rgba(0,0,0,0.2);
 
+}
+
+.display-error {
+  text-align: center;
+  min-width: 40vw;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #D00000;
 }
 
 .display-search-term {

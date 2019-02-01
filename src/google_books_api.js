@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+require('dotenv').config();
 
 export class GoogleBooksAPI {
   async getSearchResultData(query, maxResults) {

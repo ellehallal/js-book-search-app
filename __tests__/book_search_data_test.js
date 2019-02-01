@@ -4,38 +4,34 @@ import { GoogleBooksAPI } from '../src/google_books_api';
 jest.mock('../src/google_books_api');
 
 describe('Book Search Data class', () => {
-
   let bookSearchData;
   let api;
-   beforeEach(() => {
-     api = new GoogleBooksAPI()
-     bookSearchData = new BookSearchData(api);
-   });
+  beforeEach(() => {
+    api = new GoogleBooksAPI();
+    bookSearchData = new BookSearchData(api);
+  });
 
-   describe('getSearchResultData()', () => {
-
-     it('mock - checks if getSearchResultData calls the api class function, getSearchResultData', () => {
-       const data = bookSearchData.getSearchResultData("Harry Potter", 10);
-       const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
-       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
-       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
-       expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
-     });
-   });
-
-  describe('returnFormattedData()', () => {
-
-    it('checks if returnFormattedData calls the api class function, getSearchResultData', () => {
-      const data = bookSearchData.returnFormattedData("Harry Potter", 10);
+  describe('getSearchResultData()', () => {
+    it('mock - checks if getSearchResultData calls the api class function, getSearchResultData', () => {
+      bookSearchData.getSearchResultData('Harry Potter', 10);
       const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
       const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
       expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
-      expect(mockGetSearchResultData).toHaveBeenCalledWith("Harry Potter", 10);
+      expect(mockGetSearchResultData).toHaveBeenCalledWith('Harry Potter', 10);
+    });
+  });
+
+  describe('returnFormattedData()', () => {
+    it('checks if returnFormattedData calls the api class function, getSearchResultData', () => {
+      bookSearchData.returnFormattedData('Harry Potter', 10);
+      const mockAPICallInstance = GoogleBooksAPI.mock.instances[0];
+      const mockGetSearchResultData = mockAPICallInstance.getSearchResultData;
+      expect(mockGetSearchResultData).toHaveBeenCalledTimes(1);
+      expect(mockGetSearchResultData).toHaveBeenCalledWith('Harry Potter', 10);
     });
   });
 
   describe('formatData()', () => {
-
     it('returns "Unexpected error occurred" if no results returned from search', () => {
       const emptyData = 'Unexpected error occurred';
       const checkWithEmptyData = bookSearchData.formatData(emptyData);
@@ -44,16 +40,24 @@ describe('Book Search Data class', () => {
     });
 
     it('only returns the requested information from the data', () => {
-      const data = {"items": [{"volumeInfo": {"title": "Grenada", "datePublished": "2017-05-25", "price": 20, "authors": ["Maurice Bishop"], "publisher": "Spice Isle Books", "averageRating": 5, "imageLinks": {"thumbnail": 'https://test.com/test.png'}, "canonicalVolumeLink": "https://grenada.com"}}]};
+      const data = {
+        items: [{
+          volumeInfo: {
+            title: 'Grenada', datePublished: '2017-05-25', price: 20, authors: ['Maurice Bishop'], publisher: 'Spice Isle Books', averageRating: 5, imageLinks: { thumbnail: 'https://test.com/test.png' }, canonicalVolumeLink: 'https://grenada.com',
+          },
+        }],
+      };
       const formattedData = bookSearchData.formatData(data);
 
       expect(Object.keys(formattedData[0]).length).toEqual(6);
-      expect(formattedData).toEqual([{title: "Grenada", author: "Maurice Bishop", publisher: "Spice Isle Books", rating: 5, image: 'https://test.com/test.png', link: "https://grenada.com"}]);
+      expect(formattedData).toEqual([{
+        title: 'Grenada', author: 'Maurice Bishop', publisher: 'Spice Isle Books', rating: 5, image: 'https://test.com/test.png', link: 'https://grenada.com',
+      }]);
     });
   });
 
   describe('verifyDataExists()', () => {
-    const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}}};
+    const data = { volumeInfo: { title: 'Grenada', authors: null, imageLinks: { thumbnail: null } } };
 
     it('returns true if the key and value exists', () => {
       const formattedData = bookSearchData.verifyDataExists(data, 'volumeInfo.title');
@@ -72,7 +76,11 @@ describe('Book Search Data class', () => {
   });
 
   describe('setValue()', () => {
-    const data = {"volumeInfo": {"title": "Grenada", "authors": null, "imageLinks": {"thumbnail": null}, "averageRating": null}};
+    const data = {
+      volumeInfo: {
+        title: 'Grenada', authors: null, imageLinks: { thumbnail: null }, averageRating: null,
+      },
+    };
 
     it('returns the value if the key exists, and the value is not null', () => {
       const formattedData = bookSearchData.setValue(data, 'volumeInfo.title');
@@ -102,7 +110,7 @@ describe('Book Search Data class', () => {
 
   describe('httpToHttps()', () => {
     it('replaces http in a string with https', () => {
-      const secureLink = bookSearchData.httpToHttps('http://hello.com/img.png')
+      const secureLink = bookSearchData.httpToHttps('http://hello.com/img.png');
       expect(secureLink).toEqual('https://hello.com/img.png');
     });
   });

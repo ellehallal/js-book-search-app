@@ -1,10 +1,10 @@
 {
-  "name": "BookSearchApp",
+  "name": "booksearchapp",
   "version": "1.0.0",
   "description": "A web app which allows you to use the Google Books API to search for books",
   "private": true,
   "scripts": {
-    "lint": "eslint src/*.js",
+    "lint": "eslint .src/*.js",
     "test": "jest",
     "watch": "node_modules/.bin/webpack --watch",
     "start": "node server.js",
@@ -17,30 +17,28 @@
   },
   "author": "Elle H.",
   "license": "ISC",
-  "bugs": {
-    "url": "https://bookish-00.herokuapp.com"
-  },
-  "homepage": "",
+  "bugs": {},
+  "homepage": "https://bookish-00.herokuapp.com",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
     "dotenv-webpack": "^1.6.0",
-    "dotenv": "^6.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.2",
     "jest": "^23.6.0",
-    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "express": "^4.16.4",
     "lodash": "^4.17.11",
     "node-fetch": "^2.3.0",
-    "vanilla-back-to-top": "^7.2.0"
+    "vanilla-back-to-top": "^7.2.0",
+    "dotenv": "^6.2.0",
+    "webpack": "^4.27.1"
   },
   "engines": {
     "node": "11.6.0",

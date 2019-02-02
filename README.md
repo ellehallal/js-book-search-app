@@ -4,7 +4,7 @@ A responsive web app that allows you to use the [Google Books API](https://devel
 
 [View Bookish on Heroku](https://bookish-00.herokuapp.com).
 
-##Contents
+## Contents
   - [Screenshot](#screenshot)
   - [Application Requirements](#application-requirements)
   - [Install](#install)

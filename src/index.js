@@ -50,26 +50,33 @@ function displaySearchResults(results) {
   results.forEach((book) => {
     const bookData = document.createElement('div');
     bookData.classList.add('book-data');
+
     const bookDataText = document.createElement('div');
     bookDataText.classList.add('book-data-text');
+
     const bookDataImage = document.createElement('div');
     bookDataImage.classList.add('book-data-image');
 
     const title = document.createElement('p');
     title.classList.add('book-title');
-    const hr = document.createElement('hr');
-    const author = document.createElement('p');
-    const publisher = document.createElement('p');
-    const rating = document.createElement('p');
-    const image = document.createElement('img');
-    const link = document.createElement('p');
-
     title.innerHTML = book.title;
+
+    const hr = document.createElement('hr');
+
+    const author = document.createElement('p');
     author.innerHTML = `by: ${book.author}`;
+
+    const publisher = document.createElement('p');
     publisher.innerHTML = `Publisher: ${book.publisher}`;
+
+    const rating = document.createElement('p');
     rating.innerHTML = `Rating: <i class="fas fa-star"></i> ${book.rating}`;
-    link.innerHTML = formatBookLink(book.link);
+
+    const image = document.createElement('img');
     image.src = book.image;
+
+    const link = document.createElement('p');
+    link.innerHTML = formatBookLink(book.link);
 
     bookDataImage.append(image);
     bookDataText.append(title, hr, author, publisher, rating, link);

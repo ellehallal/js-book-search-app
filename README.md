@@ -15,8 +15,7 @@
 
 - A responsive web application, which allows the user to enter a query to search the [Google Books API](https://developers.google.com/books/docs/overview) for books.
 - The user can choose to view up to 40 books matching their query.
-
-[View Bookish on Heroku](https://bookish-00.herokuapp.com).
+- [View Bookish on Heroku](https://bookish-00.herokuapp.com).
 
 ## Preview
 
@@ -64,7 +63,9 @@ Navigate to `http://localhost:8080` in your browser.
 The testing library used is [Jest](https://jestjs.io/). Two test suites are included:
 
 1. To test the GoogleBooksAPI class, which makes a request to the Google Books API.
-2. To test that the Book Search Data class formats the data received from the Google Books API request.
+2. To test that the BookSearchData class formats the data received from an API request.
+
+**Note:** mocks are in place for functions which initiate a request to the Google Books API.
 
 #### To run tests:
 
@@ -75,10 +76,17 @@ Type `npm run test` in the terminal.
 #### Security Vunerability
 
 - **Issue:** the app is susceptible to injection attacks. E.g. a query of `Harry Potter&foo=bar&key=12345#` will send a HTTP request with a param called "foo" and a key overwriting all of the params that is specified in the code.
-- **Comment:** This is a new concept I'm being introduced to. I believe this may be due to [DOM-based Cross-Site Scripting](https://www.owasp.org/index.php/Testing_for_Cross_site_scripting#Description_of_Cross-site_scripting_Vulnerabilities).
-- **Solution:** In the [GoogleBooksAPI](https://github.com/itsellej/js-book-search-app/blob/master/src/google_books_api.js) class, `getSearchResultData()` takes a parameter `query`. This is input from the user. By calling `encodeURIComponent()` on `query`, URL reserved characters are replaced with their UTF-8 encoding. This is done before the API request is made.
-  For example, as a result, the query above is encoded to:
-  `Harry%20Potter%26foo%3Dbar%26key%3D12345%23`
+- **Comment:** This is a new concept I'm being introduced to. I believe the issue may be due to the user input not being encoded or validated.
+
+- **Proposed resolution:** I'd like to explore and possibly implement the validation and content security considerations when I'm more familar with Express.js.
+
+  - _Encoding:_ In the [GoogleBooksAPI](https://github.com/itsellej/js-book-search-app/blob/master/src/google_books_api.js) class, `getSearchResultData()` takes a parameter `query`. This is input from the user. By calling `encodeURIComponent()` on `query`, URL reserved characters are replaced with their UTF-8 encoding. This is done before the API request is made. For example, the query above would be encoded to:
+    `Harry%20Potter%26foo%3Dbar%26key%3D12345%23`
+
+  - _Validation implementation:_ This could be whitelisting (defining an allowed pattern for the search field / query input), and rejecting the input if it doesn't match the specified pattern.
+    This may be implemented through Express.js with [express-validator](https://express-validator.github.io/docs/), to sanitise the input received from the user.
+
+  - _CSP implementation:_ Can be used to specify trusted domains to run JavaScript from. Can also be used to prevent the use of inline and dynamic scripts. This may be implemented via Express.js, using [Helmet](https://expressjs.com/en/advanced/best-practice-security.html).
 
 ## Edge cases considered
 
@@ -88,6 +96,6 @@ Type `npm run test` in the terminal.
 
 - If a user does not enter a query, or select to display between 1-40 results, an error message displays, and a request to the Google Books API is not actioned.
 
-- Previously, a `mixed content` error displayed in the browser console, due to the Google Books API providing an insecure thumbnail image link (http://). In BookSearchData class, the `httpToHttps` method replaces http:// with https://. As a result, this error no longer displays in the console.
-
 - Displays '_No results found. Please try again._' if the API request returned 0 book items.
+
+- Previously, a `mixed content` error displayed in the browser console, due to the Google Books API providing an insecure thumbnail image link (http://). In the BookSearchData class, the `httpToHttps` method replaces http:// with https://. As a result, this error no longer displays in the console.

@@ -6,9 +6,9 @@
   - [Application Requirements](#application-requirements)
   - [Install](#install)
   - [Testing](#testing)
-      - [To run tests:](#to-run-tests)
+    - [To run tests:](#to-run-tests)
   - [Code review feedback](#code-review-feedback)
-      - [Security Vunerability](#security-vunerability)
+    - [Security Vunerability](#security-vunerability)
   - [Edge cases considered](#edge-cases-considered)
 
 ## What is Bookish?
@@ -75,10 +75,17 @@ Type `npm run test` in the terminal.
 #### Security Vunerability
 
 - **Issue:** the app is susceptible to injection attacks. E.g. a query of `Harry Potter&foo=bar&key=12345#` will send a HTTP request with a param called "foo" and a key overwriting all of the params that is specified in the code.
-- **Comment:** This is a new concept I'm being introduced to. I believe this may be due to [DOM-based Cross-Site Scripting](https://www.owasp.org/index.php/Testing_for_Cross_site_scripting#Description_of_Cross-site_scripting_Vulnerabilities).
-- **Solution:** In the [GoogleBooksAPI](https://github.com/itsellej/js-book-search-app/blob/master/src/google_books_api.js) class, `getSearchResultData()` takes a parameter `query`. This is input from the user. By calling `encodeURIComponent()` on `query`, URL reserved characters are replaced with their UTF-8 encoding. This is done before the API request is made.
-  For example, as a result, the query above is encoded to:
+- **Comment:** This is a new concept I'm being introduced to. I believe this may be due to Cross-Site Scripting.
+- **Resolution:** I understand encoding, validation and Content Security Policy (CSP) can help to prevent this:
+
+  Encoding: In the [GoogleBooksAPI](https://github.com/itsellej/js-book-search-app/blob/master/src/google_books_api.js) class, `getSearchResultData()` takes a parameter `query`. This is input from the user. By calling `encodeURIComponent()` on `query`, URL reserved characters are replaced with their UTF-8 encoding. This is done before the API request is made. For example, as a result, the query above is encoded to:
   `Harry%20Potter%26foo%3Dbar%26key%3D12345%23`
+
+  Validation considerations: This would be whitelisting (defining an allowed pattern for the search field / query input), and rejecting the input if it doesn't match the specified pattern.
+
+  CSP considerations: By implementing this, inline and dynamic JavaScript and CSS code could be disabled.
+
+  _Sources_: [1](https://excess-xss.com/) [2](https://en.wikipedia.org/wiki/Content_Security_Policy)
 
 ## Edge cases considered
 
